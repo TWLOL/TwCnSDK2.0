@@ -1,4 +1,4 @@
-﻿namespace LeagueSharp.SDK.Utils
+namespace LeagueSharp.SDK.Utils
 {
     using System;
     using System.Collections.Generic;
@@ -45,8 +45,6 @@
                     return false;
                 }
 
-                languageStrings = Translations.DesDecrypt(languageStrings);
-
                 translations = JsonConvert.DeserializeObject<Dictionary<string, string>>(languageStrings);
                 return true;
             }
@@ -66,20 +64,22 @@
             {
                 var selectLanguage = SandboxConfig.SelectedLanguage;
 
-                LoadLanguage("Chinese");
-
-                //if (selectLanguage == "Chinese")
-                //{
-                //    LoadLanguage("Chinese");
-                //}
-                //else if (selectLanguage == "Traditional-Chinese")
-                //{
-                //    LoadLanguage("TraditionalChinese");
-                //}
-                //else
-                //{
-                //    // ignore
-                //}
+                if (selectLanguage == "Chinese")
+                {
+                    LoadLanguage("Chinese");
+                }
+                else if (selectLanguage == "Traditional-Chinese")
+                {
+                    LoadLanguage("TraditionalChinese");
+                }
+                else if (selectLanguage.StartsWith("zh"))
+                {
+                    LoadLanguage("TraditionalChinese");
+                }
+                else
+                {
+                    // ignore
+                }
             }
             catch (Exception ex)
             {
